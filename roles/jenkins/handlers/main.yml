@@ -1,5 +1,5 @@
 ---
 - name: Restart Jenkins
-  homebrew_service:
+  community.general.homebrew_cask:
     name: "{{ jenkins_service_name }}"
     state: restarted
