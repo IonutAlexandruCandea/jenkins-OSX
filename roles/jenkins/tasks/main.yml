@@ -5,19 +5,15 @@
     creates: /usr/local/bin/brew
 
 - name: Update Homebrew
-  homebrew:
-    update_homebrew: yes
+  ansible.builtin.command: brew update
 
 - name: Install Jenkins
-  homebrew:
+  community.general.homebrew_cask:
     name: "{{ jenkins_homebrew_package }}"
-    state: latest
+    state: present
 
 - name: Ensure Jenkins service is started
-  homebrew_service:
-    name: "{{ jenkins_service_name }}"
-    state: started
-    enabled: yes
+  ansible.builtin.command: brew services start "{{ jenkins_service_name }}"
 
 - name: Wait for Jenkins to start
   wait_for:
