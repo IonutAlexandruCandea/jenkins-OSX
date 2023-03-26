@@ -1,0 +1,27 @@
+---
+- name: Install Homebrew
+  ansible.builtin.shell: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  args:
+    creates: /usr/local/bin/brew
+
+- name: Update Homebrew
+  homebrew:
+    update_homebrew: yes
+
+- name: Install Jenkins
+  homebrew:
+    name: "{{ jenkins_homebrew_package }}"
+    state: latest
+
+- name: Ensure Jenkins service is started
+  homebrew_service:
+    name: "{{ jenkins_service_name }}"
+    state: started
+    enabled: yes
+
+- name: Wait for Jenkins to start
+  wait_for:
+    host: localhost
+    port: "{{ jenkins_port }}"
+    state: started
+    timeout: 60

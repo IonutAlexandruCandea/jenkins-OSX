@@ -1,0 +1,6 @@
+---
+- name: Install Jenkins on macOS
+  hosts: macos
+  become: yes
+  roles:
+    - jenkins

@@ -1,0 +1,4 @@
+---
+jenkins_homebrew_package: "jenkins-lts"
+jenkins_port: 8080
+jenkins_service_name: "jenkins-lts"
