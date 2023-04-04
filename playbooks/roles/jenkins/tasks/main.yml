@@ -5,7 +5,7 @@
 #     creates: /usr/local/bin/brew
 
 - name: Update Homebrew
-  ansible.builtin.command: brew update
+  ansible.builtin.command: /opt/homebrew/bin/brew update
 
 - name: Install Jenkins
   community.general.homebrew_cask:
@@ -13,7 +13,7 @@
     state: present
 
 - name: Ensure Jenkins service is started
-  ansible.builtin.command: brew services start "{{ jenkins_service_name }}"
+  ansible.builtin.command: /opt/homebrew/bin/brew services start "{{ jenkins_service_name }}"
 
 - name: Wait for Jenkins to start
   wait_for:
