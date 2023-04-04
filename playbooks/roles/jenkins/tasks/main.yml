@@ -7,13 +7,13 @@
 - name: Update Homebrew
   ansible.builtin.command: /opt/homebrew/bin/brew update
 
-- name: Install Jenkins
-  community.general.homebrew_cask:
-    name: "{{ jenkins_homebrew_package }}"
-    state: present
+- name: Install Jenkins LTS
+  community.general.homebrew:
+    name: jenkins-lts
+    state: latest
 
 - name: Ensure Jenkins service is started
-  ansible.builtin.command: /opt/homebrew/bin/brew services start "{{ jenkins_service_name }}"
+  ansible.builtin.command: /opt/homebrew/bin/brew services start jenkins-lts
 
 - name: Wait for Jenkins to start
   wait_for:
@@ -21,3 +21,4 @@
     port: "{{ jenkins_port }}"
     state: started
     timeout: 60
+
